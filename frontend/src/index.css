@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #F7F0E5;
+    color: #181716;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Warm paper texture via subtle noise — CSS-only, no image dependency */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  /* All content above the texture */
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Editorial text selection */
+  ::selection {
+    background-color: rgba(230, 83, 50, 0.18);
+    color: #0F0E0D;
+  }
+
+  /* Focus rings */
+  *:focus-visible {
+    outline: 2px solid #E65332;
+    outline-offset: 2px;
+  }
+}
+
+/* =============================================
+   TYPOGRAPHY HELPERS
+   ============================================= */
+@layer components {
+  .label-mono {
+    @apply font-mono text-[10px] tracking-widest uppercase font-semibold;
+  }
+  .section-number {
+    @apply font-mono text-xs tracking-widest uppercase font-bold text-coral;
+  }
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-paper;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5
+           bg-coral hover:bg-coral-hover active:bg-coral-dark
+           text-white font-mono text-xs uppercase tracking-widest font-semibold
+           transition-all shadow-paper cursor-pointer;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5
+           border border-rule hover:border-ink
+           bg-paper-sheet text-ink-deep
+           font-mono text-xs uppercase tracking-wider
+           transition-colors cursor-pointer;
+  }
+  .btn-cobalt {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-cobalt hover:bg-cobalt-dark
+           text-white font-mono text-xs uppercase tracking-wider font-semibold
+           transition-colors cursor-pointer;
+  }
+}
+
+/* =============================================
+   ANIMATED ELEMENTS
+   ============================================= */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(230, 83, 50, 0.3); }
+  70%  { box-shadow: 0 0 0 10px rgba(230, 83, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(230, 83, 50, 0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+.animate-pulse-ring  { animation: pulse-ring 2.5s ease-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* =============================================
+   COLOR BLOCK ACCENTS
+   ============================================= */
+.color-field-coral {
+  background: linear-gradient(135deg, #E65332 0%, #F29A70 100%);
+}
+.color-field-lavender {
+  background: linear-gradient(135deg, #B8A8D8 0%, #9DBBD0 100%);
+}
+.color-field-cobalt {
+  background: linear-gradient(135deg, #294B78 0%, #9DBBD0 100%);
+}
+.color-field-sage {
+  background: linear-gradient(135deg, #789681 0%, #C0D4C6 100%);
+}
+.color-field-mustard {
+  background: linear-gradient(135deg, #C59A3A 0%, #F29A70 100%);
+}
+
+/* =============================================
+   REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #EFE6D6;
+}
+::-webkit-scrollbar-thumb {
+  background: #C4B9AA;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9C948A;
+}
+
+/* =============================================
+   PRINT
+   ============================================= */
+@media print {
+  header, nav, footer, .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  .print-page {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}

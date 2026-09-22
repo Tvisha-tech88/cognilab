@@ -1,0 +1,7 @@
+agent-framework
+agent-framework-foundry
+agent-framework-foundry-hosting
+azure-identity
+scikit-learn
+pandas
+python-dotenv
