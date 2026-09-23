@@ -34,7 +34,7 @@ from sklearn.metrics import (
 
 load_dotenv()
 
-TENANT_ID = "c3e02fe4-fe78-4dc4-aee7-e3951ae8862f"
+TENANT_ID = "TENANT_ID"
 
 client = FoundryChatClient(
     project_endpoint=os.environ["FOUNDRY_PROJECT_ENDPOINT"],
