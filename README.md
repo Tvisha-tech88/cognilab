@@ -1,129 +1,161 @@
 # 🧠 Cognilab Report Agent
 
-> **A multi-agent AI research system that helps turn a research question into an experiment, analyze the results, and generate a structured research report with a research dashboard.**
+> **A multi-agent AI research system that turns a research question into structured evidence, experiments, critical analysis, and a final research report.**
 
 ## 📌 About the Project
 
-Cognilab Report Agent is a **multi-agent AI research system** built using **Azure AI Foundry**.
+**Cognilab Report Agent** is a multi-agent AI research system built using **Azure AI Foundry**.
 
-The idea behind Cognilab is simple: instead of asking one AI agent to handle the entire research process, the work is divided between multiple specialized agents. Each agent focuses on one stage of the workflow and passes its output to the next stage.
+Instead of asking a single AI agent to handle the complete research process, Cognilab divides the workflow into specialized agents. Each agent is responsible for a specific stage of the research lifecycle, and the output from one stage is passed to the next.
 
-The system takes a research question and moves through **research planning, evidence gathering, hypothesis development, experimentation, critical analysis, and final report generation**.
+The workflow covers **research planning, hypothesis development, resource discovery, experimentation, analysis, critique, and final report generation**.
 
-The final stage also prepares structured information that can be used by a **research dashboard** to present the results in a more accessible way.
-
----
-
-## 🚀 What Can Cognilab Do?
-
-* Break a research workflow into specialized AI agents
-*  Run and structure machine learning experiments
-*  Compare experimental results and evaluation metrics
-*  Critically analyze experiment outcomes
-*  Check whether a hypothesis is supported by the available evidence
-*  Identify limitations and missing information
-*  Generate a structured final research report
-*  Prepare dashboard-ready research results
-*  Suggest suitable follow-up experiments
-* Pass structured information between agents using JSON
-*  Use Azure AI Foundry for agent development and evaluation
-*  Provide a backend API using FastAPI
-*  Provide a frontend interface using TypeScript
+The goal is to make the research process more structured, evidence-driven, and easier to reproduce.
 
 ---
 
-## 🏗️ Agent Architecture
+## 🚀 What Cognilab Does
 
-Cognilab follows a sequential multi-agent workflow. Each agent has a specific responsibility, and the output from one stage becomes useful input for the next.
+Cognilab can:
 
-| Agent       | Cognilab Agent Name         | Responsibility                                                |
-| ----------- | --------------------------- | ------------------------------------------------------------- |
-| **Agent 1** | `Cognilab-Research-Agent`   | Research planning and research question                       |
-| **Agent 2** | `Cognilab-Hypothesis-Agent` | Research evidence and hypothesis development                  |
-| **Agent 3** | `Experiment-Agent3`         | Experiment design, execution, and results                     |
-| **Agent 4** | `Cognilab-Analysis-Critic`  | Analysis, critique, responsiveness, and hypothesis assessment |
-| **Agent 5** | `Cognilab-Final-Report`     | Final report, application output, and dashboard-ready results |
+*  Break a research question into specialized research tasks
+*  Discover relevant research resources and supporting information
+*  Generate and structure research hypotheses
+*  Design and execute experiments
+*  Produce structured experimental results
+*  Analyze experimental outcomes
+*  Critically evaluate evidence and methodology
+*  Identify limitations and missing information
+*  Recommend follow-up experiments
+*  Generate a structured final research report
+
+---
+
+## 🏗️ Multi-Agent Architecture
+
+Cognilab uses a sequential multi-agent architecture where each stage builds on the output of the previous stage.
+
+| Agent       | Name                        | Responsibility                                                             |
+| ----------- | --------------------------- | -------------------------------------------------------------------------- |
+| **Agent 1** | `cognilab-research-agent`   | Research planning and research question analysis                           |
+| **Agent 2** | `cognilab-hypothesis-agent` | Hypothesis generation and research direction                               |
+| **Agent 3** | `experiment-agent3`         | Experiment design, execution, and structured results                       |
+| **Agent 4** |  `cognilab-analysis-critic` | Analysis, critique, responsiveness, limitations, and hypothesis assessment |
+| **Agent 5** | `cognilab-final-report`     | Final research report generation                                           |
 
 ### 🔄 Overall Workflow
 
-```text
-                         Research Question
-                                │
-                                ▼
-                 ┌─────────────────────────┐
-                 │         Agent 1         │
-                 │ Cognilab-Research-Agent │
-                 │ Research Planning       │
-                 └────────────┬────────────┘
-                              │
-                              ▼
-                 ┌─────────────────────────┐
-                 │         Agent 2         │
-                 │ Cognilab-Hypothesis-   │
-                 │ Agent                   │
-                 │ Evidence & Hypothesis   │
-                 └────────────┬────────────┘
-                              │
-                              ▼
-                 ┌─────────────────────────┐
-                 │         Agent 3         │
-                 │ Experiment-Agent3       │
-                 │ Experiment & Results   │
-                 └────────────┬────────────┘
-                              │
-                              ▼
-                 ┌─────────────────────────┐
-                 │         Agent 4         │
-                 │ Cognilab-Analysis-      │
-                 │ Critic                  │
-                 │ Analysis & Critique     │
-                 └────────────┬────────────┘
-                              │
-                              ▼
-                 ┌─────────────────────────┐
-                 │         Agent 5         │
-                 │ Cognilab-Final-Report   │
-                 │ Final Report &          │
-                 │ Dashboard Output        │
-                 └────────────┬────────────┘
-                              │
-                    ┌─────────┴─────────┐
-                    ▼                   ▼
-              Research Report     Research Dashboard
+
+                    Research Question
+                           │
+                           ▼
+              ┌─────────────────────────┐
+              │         Agent 1         │
+              │ cognilab-research-agent │
+              │   Research Planning     │
+              └────────────┬────────────┘
+                           │
+                           ▼
+              ┌──────────────────────────┐
+              │         Agent 2          │
+              │ cognilab-hypothesis-agent│
+              │  Hypothesis Development  │
+              └────────────┬─────────────┘
+                           │
+                           ▼
+              ┌─────────────────────────┐
+              │     Resource Discovery │
+              │         Agent         │
+              │ Resources & Evidence   │
+              └────────────┬────────────┘
+                           │
+                           ▼
+              ┌─────────────────────────┐
+              │         Agent 3         │
+              │     experiment-agent3   │
+              │ Experimentation & Data  │
+              └────────────┬────────────┘
+                           │
+                           ▼
+              ┌─────────────────────────┐
+              │         Agent 4         │
+              │ cognilab-analysis-critic│
+              │ Analysis & Critical     │
+              │ Evaluation              │
+              └────────────┬────────────┘
+                           │
+                           ▼
+              ┌─────────────────────────┐
+              │         Agent 5         │
+              │  cognilab-final-report  │
+              │    Final Research       │
+              │         Report          │
+              └─────────────────────────┘
 ```
 
 ---
 
-## 🔬 Example: End-to-End Research Workflow
+## 🔬 Example Research Workflow
 
-One of the experimental workflows in the project investigates:
+Consider a research question:
 
 > **Does Random Forest perform better than Logistic Regression on the Breast Cancer Wisconsin dataset?**
 
-The research moves through all five agents.
+### 1. Research Agent
 
-### Agent 1 — `Cognilab-Research-Agent`
+`cognilab-research-agent` first understands the research question and structures the research objective.
 
-The research agent starts with the initial research problem.
+It can identify:
 
-It structures the research question, defines the research direction, and identifies what needs to be investigated.
+* Research problem
+* Research objective
+* Key variables
+* Required evidence
+* Potential experimental direction
 
-### Agent 2 — `Cognilab-Hypothesis-Agent`
+### 2. Hypothesis Agent
 
-The hypothesis agent uses the research context to develop the hypothesis and organize supporting research information required for the experiment.
+`cognilab-hypothesis-agent` uses the research objective to formulate a testable hypothesis.
 
 For example:
 
-> **Hypothesis:** Random Forest will perform better than Logistic Regression on the selected classification task.
+> Random Forest will achieve better classification performance than Logistic Regression on the selected dataset.
 
-### Agent 3 — `Experiment-Agent3`
+The agent can also structure the null and alternative hypotheses when required.
 
-The experiment agent runs the machine learning experiment and records information such as:
+### 3. Resource Discovery Agent
 
-* Dataset and data source
-* Number of samples and features
+The **Resource Discovery Agent** identifies useful resources and supporting information required for the research workflow.
+
+It uses the **Hugging Face API** to discover relevant machine learning resources, models, datasets, and related information that can support the research and experimentation stages. Hugging Face provides access to models and datasets that agents can search and explore programmatically.
+
+This stage can provide:
+
+* Dataset-related information
+* Relevant models from Hugging Face
+* Research and technical resources
+* Model documentation
+* Supporting evidence
+* Dataset information for experiments
+* Context required for experimentation
+
+The discovered resources are then passed forward in the workflow so that the experimentation stage can use relevant datasets, models, and supporting information.
+
+**Technology used:** Hugging Face API / Hugging Face Hub
+
+
+### 4. Experiment Agent
+
+`experiment-agent3` uses the research context, hypothesis, and discovered resources to execute the experiment.
+
+The experiment record can include:
+
+* Dataset information
+* Number of samples
+* Number of features
 * Train/test split
 * Random seed
+* Model configuration
 * Baseline model
 * Treatment model
 * Accuracy
@@ -132,204 +164,201 @@ The experiment agent runs the machine learning experiment and records informatio
 * F1-score
 * Training time
 
-The structured experiment results are then passed to the analysis stage.
+### 5. Analysis & Critic Agent
 
-### Agent 4 — `Cognilab-Analysis-Critic`
+`cognilab-analysis-critic` evaluates the experimental evidence rather than simply repeating the results.
 
-The analysis agent examines what the experimental results actually show.
+It can identify:
 
-It compares the models, calculates relevant differences, evaluates the hypothesis, identifies limitations, checks whether statistical claims are justified, and recommends what should be tested next.
+* Performance differences between models
+* Absolute and relative metric changes
+* Whether the hypothesis is supported by the observed evidence
+* Experimental limitations
+* Missing methodological information
+* Whether statistical significance can actually be claimed
+* Potential weaknesses in the experiment
+* A concrete next experiment
 
-It also considers **responsiveness** — whether the agent responds clearly and appropriately to the information and requirements provided in the research workflow.
+It also focuses on **responsiveness** — ensuring that the analysis directly addresses the research question, user request, and available experimental evidence instead of producing unrelated or generic analysis.
 
-For example, if the experiment only contains one train/test split, Agent 4 can identify that limitation instead of treating the result as a general conclusion.
+### 6. Final Report Agent
 
-### Agent 5 — `Cognilab-Final-Report`
+`cognilab-final-report` consolidates the complete research record into a structured research report.
 
-The final report agent brings the complete research record together.
+The report can contain:
 
-It produces:
-
-* A structured research report
-* Executive summary
-* Experiment findings
-* Analysis and critique
-* Limitations
-* Conclusion
-* Next experiment
-* Reproducibility checklist
-* Dashboard-ready JSON
-
-The dashboard can then use this structured output to present the research results visually.
-
----
-
-## 🧩 Agent Responsibilities
-
-### 1. `Cognilab-Research-Agent`
-
-The first agent starts with the research problem.
-
-Its job is to:
-
-* Understand the research topic
-* Structure the research question
-* Define the research direction
-* Identify the main research objective
-* Prepare the research plan for the next agent
+1. Executive Summary
+2. Research Question
+3. Research Evidence
+4. Hypothesis
+5. Experiment Design
+6. Experiment Results
+7. Analysis & Critique
+8. Limitations
+9. Conclusion
+10. Next Experiment
+11. Reproducibility Information
 
 ---
 
-### 2. `Cognilab-Hypothesis-Agent`
+## 🧠 Agent Responsibilities
 
-The second agent works with the research context and prepares the hypothesis and supporting research information.
+### `cognilab-research-agent`
 
-Its responsibilities include:
+Responsible for understanding and structuring the initial research problem.
 
-* Reviewing the research question
-* Developing a testable hypothesis
-* Organizing supporting evidence
-* Identifying relevant variables
-* Preparing information required for experimentation
+**Main responsibilities:**
 
----
-
-### 3. `Experiment-Agent3`
-
-This agent focuses on the practical experimentation stage.
-
-Its responsibilities include:
-
-* Preparing the experiment
-* Running machine learning models
-* Comparing baseline and treatment conditions
-* Recording evaluation metrics
-* Recording experiment parameters
-* Producing structured experiment results
+* Research question analysis
+* Research objective identification
+* Problem decomposition
+* Research planning
+* Identification of required information
 
 ---
 
-### 4. `Cognilab-Analysis-Critic`
+### `cognilab-hypothesis-agent`
 
-This agent critically evaluates the experiment rather than simply repeating the numbers.
+Responsible for converting the research objective into a structured, testable hypothesis.
 
-Its responsibilities include:
+**Main responsibilities:**
 
-* Comparing experimental results
-* Calculating metric differences
-* Assessing the hypothesis against observed evidence
-* Identifying methodological limitations
-* Checking whether statistical claims are justified
-* Identifying missing information
-* Evaluating **responsiveness** to the provided research context and requirements
-* Recommending a follow-up experiment
-* Maintaining a clear distinction between observations and interpretations
+* Hypothesis generation
+* Variable identification
+* Expected outcome definition
+* Research direction
+* Experimental hypothesis structure
 
 ---
 
-### 5. `Cognilab-Final-Report`
+### `resource-discovery-agent`
 
-The final agent brings everything together.
+Responsible for finding resources and supporting information needed for the research workflow.
 
-It converts the research record, experimental results, and analysis into:
+**Main responsibilities:**
 
-* A structured final research report
+* Resource discovery
+* Evidence gathering
+* Dataset/resource identification
+* Supporting information
+* Research context collection
+
+---
+
+### `experiment-agent3`
+
+Responsible for translating the research hypothesis into an executable experiment.
+
+**Main responsibilities:**
+
+* Experiment design
+* Dataset preparation
+* Model configuration
+* Experiment execution
+* Metric calculation
+* Structured experiment output
 * Reproducibility information
-* Dashboard-ready JSON
-* Application-ready research output
-
-The final output can be consumed by the frontend to display the research workflow and results through a dashboard.
 
 ---
 
-## 🧠 Why Use Multiple Agents?
+### `cognilab-analysis-critic`
 
-A major idea behind Cognilab is **separation of responsibilities**.
+Responsible for critically evaluating experimental results.
 
-Instead of giving one agent a huge prompt and asking it to research, experiment, analyze, and write everything at once, each stage has its own focused role.
+**Main responsibilities:**
 
-This makes the workflow easier to understand, test, and debug:
+1. Baseline vs treatment comparison
+2. Absolute and relative metric differences
+3. Hypothesis assessment
+4. Evidence-based analysis
+5. Experimental critique
+6. Limitation identification
+7. Statistical-evidence checks
+8. Responsiveness to the research question
+9. Next-experiment recommendation
 
-```text
-Research
-   ↓
-Hypothesis
-   ↓
-Experiment
-   ↓
-Analysis & Critique
-   ↓
-Final Report
-   ↓
-Research Dashboard
-```
-
-Each agent can also be evaluated independently before the complete pipeline is connected.
+The agent is designed to avoid unsupported conclusions, especially claims about statistical significance when the available experiment does not provide sufficient evidence.
 
 ---
 
-## 🛠️ Tech Stack
+### `cognilab-final-report`
 
-| Technology                       | Used For                                            |
-| -------------------------------- | --------------------------------------------------- |
-| **Python**                       | Agent implementation                                |
-| **Azure AI Foundry**             | Building, managing, and evaluating AI agents        |
-| **Azure AI Projects SDK**        | Connecting the application with the Foundry project |
-| **InteractiveBrowserCredential** | Azure authentication                                |
-| **FastAPI**                      | Backend API                                         |
-| **TypeScript**                   | Frontend application                                |
-| **JSON**                         | Passing structured data between agents              |
-| **scikit-learn**                 | Machine learning experiments                        |
-| **Git & GitHub**                 | Version control                                     |
+Responsible for converting the complete research record into a readable final report.
+
+**Main responsibilities:**
+
+* Research summary
+* Experiment documentation
+* Results consolidation
+* Analysis integration
+* Limitations
+* Conclusions
+* Next-experiment recommendations
+* Reproducibility information
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology                | Purpose                                         |
+| ------------------------- | ----------------------------------------------- |
+| **Python**                | Agent implementation and research logic         |
+| **TypeScript**            | Frontend development                            |
+| **FastAPI**               | Backend API and communication layer             |
+| **Azure AI Foundry**      | AI agents and orchestration                     |
+| **Azure AI Projects SDK** | Azure AI project and agent interaction          |
+| **Azure Identity**        | Azure authentication                            |
+| **Azure AI Agent Server** | Local agent serving                             |
+| **Hugging Face API**      | Resource discovery, model and dataset retrieval |
+| **JSON**                  | Structured agent-to-agent communication         |
+| **scikit-learn**          | Machine learning experiments                    |
+| **Git & GitHub**          | Version control                                 |
+
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-cognilab-report-agent/
+cognilab/
 │
-├── agent 1/
-│   └── ...
-│
-├── agent 2/
-│   └── ...
-│
-├── agent 3/
-│   ├── main.py
-│   ├── test_agent.py
-│   └── ...
-│
-├── agent 4/
-│   ├── run_agent.py
-│   └── ...
-│
-├── agent 5/
-│   ├── dashboard/
-│   └── ...
+├── agents/
+│   ├── research-agent/
+│   ├── hypothesis-agent/
+│   ├── resource-discovery-agent/
+│   ├── experiment-agent3/
+│   ├── analysis-critic/
+│   └── final-report/
 │
 ├── backend/
-│   └── FastAPI application
+│   └── FastAPI backend
 │
 ├── frontend/
-│   └── TypeScript application
+│   └── TypeScript frontend
 │
-├── data/
+├── resource_discovery/
 │   └── ...
 │
-├── README.md
-└── .gitignore
+├── auth.py
+├── pipeline.py
+├── requirements.txt
+├── test_agent.py
+├── test_hypothesis.py
+├── test_pipeline.py
+├── test_research.py
+├── test_validator.py
+└── README.md
 ```
 
 ---
 
-## ⚙️ Getting Started
+## ⚙️ Setup
 
 ### 1. Clone the repository
 
 ```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd cognilab-report-agent
+cd cognilab
 ```
 
 ### 2. Create a virtual environment
@@ -340,7 +369,7 @@ python -m venv .venv
 
 ### 3. Activate the virtual environment
 
-On Windows PowerShell:
+**Windows PowerShell:**
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -352,9 +381,15 @@ On Windows PowerShell:
 pip install -r requirements.txt
 ```
 
-### 5. Configure Azure authentication
+---
 
-Cognilab uses Azure's `InteractiveBrowserCredential` for authentication.
+## 🔐 Authentication
+
+The project uses Azure authentication through the Azure Identity library.
+
+The current implementation uses an interactive browser-based authentication flow where required.
+
+Example:
 
 ```python
 from azure.identity import InteractiveBrowserCredential
@@ -362,29 +397,38 @@ from azure.identity import InteractiveBrowserCredential
 credential = InteractiveBrowserCredential()
 ```
 
-When the application requires authentication, the user can authenticate through the browser.
+Make sure the authenticated Azure account has the required permissions for the Azure AI Foundry project and associated resources.
 
-Make sure the required Azure permissions and access to the Azure AI Foundry project are configured before running the agents.
+### ⚠️ Security
+
+Do **not** commit:
+
+* API keys
+* Passwords
+* Access tokens
+* `.env` files containing secrets
+* Azure credentials
+* Private configuration files
+
+Use environment variables or Azure authentication mechanisms instead.
 
 ---
 
 ## ▶️ Running the Project
 
-The project contains individual agents that can be tested separately as well as application components for the complete workflow.
+### Run an Agent
 
-### Run an agent
-
-Depending on the agent, use its corresponding Python entry point:
+For an Agent Server based agent:
 
 ```bash
 python main.py
 ```
 
-Agent-specific test scripts can also be used to test individual stages of the research pipeline.
+The local agent server can expose the configured Responses API on the specified local port.
 
-### Run the FastAPI backend
+### Run the Backend
 
-The backend exposes APIs that allow the frontend to communicate with the research agents and retrieve structured research results.
+The backend is implemented using **FastAPI**.
 
 A typical development command is:
 
@@ -392,44 +436,25 @@ A typical development command is:
 uvicorn main:app --reload
 ```
 
-### Run the frontend
+The exact command may vary depending on the backend entry point.
 
-The frontend is implemented using TypeScript and can be started using the project's configured frontend command.
+### Run the Frontend
 
-```bash
-npm install
-npm run dev
-```
+The frontend is built using **TypeScript**.
 
----
-
-## 🔐 Security
-
-Never commit sensitive credentials to GitHub.
-
-Do not upload:
-
-* API keys
-* Access tokens
-* Passwords
-* Azure credentials
-* Private `.env` files
-* Other confidential configuration
-
-Use secure environment variables or Azure authentication mechanisms instead.
+Install the frontend dependencies and start the development server according to the frontend configuration.
 
 ---
 
 ## 📊 Structured Agent Communication
 
-The agents communicate using structured JSON records.
+Agents communicate using structured research records and JSON.
 
-For example, the research and experiment pipeline can produce a research record like:
+A typical experiment record can contain:
 
 ```json
 {
   "research_question": "...",
-  "research_evidence": {},
   "hypothesis": "...",
   "experiment_details": {},
   "baseline_results": {},
@@ -438,108 +463,77 @@ For example, the research and experiment pipeline can produce a research record 
 }
 ```
 
-The analysis agent can then convert the experimental information into an analytical result:
+The Analysis & Critic Agent can transform this into:
 
 ```json
 {
   "analysis": "...",
   "hypothesis_assessment": "...",
   "critique": "...",
-  "responsiveness": "...",
   "limitations": [],
   "conclusion": "...",
   "next_experiment": "..."
 }
 ```
 
-Agent 5 uses the combined research information to generate the final research report and dashboard-ready summary.
+The Final Report Agent then uses the accumulated research information to generate the final structured research report.
 
 ---
 
-## 📈 Research Dashboard
+## 🎯 Design Principles
 
-The final stage of Cognilab prepares structured information that can be displayed through a **research dashboard**.
+### Evidence-driven analysis
 
-The dashboard is intended to make the research workflow easier to understand by presenting information such as:
+Agents should base conclusions on the experimental information and available evidence instead of inventing missing results.
 
-* Research question
-* Hypothesis
-* Research evidence
-* Experiment configuration
-* Model comparison
-* Evaluation metrics
-* Analysis and critique
-* Limitations
-* Hypothesis assessment
-* Recommended next experiment
-* Overall research status
+### Explicit uncertainty
 
-The dashboard is designed to work with the structured output produced by the agents rather than relying on manually entered results.
-
----
-
-## 🎯 Design Goals
-
-Cognilab is designed around a few important ideas.
-
-### Evidence over assumptions
-
-Agents should work with the information actually provided instead of inventing missing experimental details.
-
-### Clear limitations
-
-If an experiment has limitations, they should be explicitly mentioned rather than hidden.
+Missing information, limitations, and methodological gaps should be clearly identified.
 
 ### Reproducibility
 
-Important experimental details such as datasets, random seeds, model settings, and evaluation metrics should be recorded whenever available.
+Experiments should record important parameters such as dataset, random seed, model configuration, and evaluation metrics whenever available.
 
-### Specialized agents
+### Separation of responsibilities
 
-Each agent has a focused responsibility, making the overall workflow easier to understand and test.
+Each agent has a specialized responsibility instead of asking a single model to perform the entire research workflow.
 
-### Structured outputs
+### Structured communication
 
-Using JSON between stages makes it easier for one agent's results to be passed to another agent or consumed by the backend and dashboard.
+Agents communicate through structured research records and JSON, making the workflow easier to process and extend.
 
-### Human-readable results
+### Critical evaluation
 
-The final research output should be understandable to a researcher while remaining structured enough for software applications to consume.
+The system separates experimentation from analysis so that experimental results can be independently reviewed and critically evaluated.
 
 ---
 
 ## 🔮 Future Improvements
 
-Some features planned for future versions of Cognilab include:
+Potential extensions include:
 
-* 📚 Automated literature search and citation management
-* 📊 Advanced experiment tracking and comparison
-* 📈 Automatic result visualizations
-* 🧪 More advanced statistical analysis
-* ⚙️ Hyperparameter optimization
-* 🧠 Persistent research memory
-* 📋 More advanced research dashboards
-* 📄 PDF and academic report export
-* 🔁 Automated reproducibility reports
-* 🔗 Fully automated end-to-end execution of all five agents
-* 🌐 Improved frontend experience for interacting with the research workflow
+* Automated literature retrieval and citation management
+* Advanced experiment tracking
+* Multiple experiment comparison
+* Statistical significance testing
+* Hyperparameter optimization
+* Persistent research memory
+* Automated visualization generation
+* Reproducibility reports
+* Export to PDF and academic report formats
+* Improved multi-agent orchestration
+* Advanced research workflow automation
 
 ---
 
-## 📌 Current Status
+## 📌 Project Status
 
-**Active Development**
+**Active development**
 
-The current version focuses on building and testing the core multi-agent research workflow using **Azure AI Foundry**.
-
-The individual agents are being developed and evaluated separately before being connected into the complete research pipeline.
-
-The backend and frontend components are being developed to provide a complete application experience around the multi-agent research workflow.
+Cognilab is currently focused on building and testing a multi-agent research workflow using **Azure AI Foundry**, with specialized agents for research planning, hypothesis development, resource discovery, experimentation, critical analysis, and final report generation.
 
 ---
 
 ## ⭐ Acknowledgements
 
-Built using **Microsoft Azure AI Foundry** and the Azure AI ecosystem.
-
-Cognilab is being developed as a practical exploration of **multi-agent AI systems, machine learning experimentation, AI-assisted research, structured agent communication, and research applications**.
+Built using Microsoft's Azure AI ecosystem and **Azure AI Foundry**.
