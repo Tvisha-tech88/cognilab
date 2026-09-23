@@ -10,14 +10,14 @@ from azure.ai.projects import AIProjectClient
 # ============================================================
 
 ENDPOINT = (
-    "https://cognilab-ai-korea.services.ai.azure.com"
-    "/api/projects/cognilab"
+    "FOUNDRY_ENDPOINT"
+    "API"
 )
 
-TENANT_ID = "c3e02fe4-fe78-4dc4-aee7-e3951ae8862f"
+TENANT_ID = "TENANT_ID"
 
-AGENT_NAME = "cognilab-research-agent"
-AGENT_VERSION = "4"
+AGENT_NAME = "AGENT_NAME"
+AGENT_VERSION = "AGENT_VERSION"
 
 
 # ============================================================
